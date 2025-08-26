@@ -9,6 +9,7 @@ fn main() {
     let mut state = true;
     while state {
         let mut buffer = String::new();
+        let mut bufferDelete = String::new();
         println!("Please input Command add|delete|exit");
         std::io::stdin()
             .read_line(&mut buffer)
@@ -27,10 +28,20 @@ fn main() {
             }
             "delete" => {
                 let db_list = db.list();
+
                 for (index, items) in db_list.iter().enumerate() {
-                    println!("{}", items);
+                    println!("Index: {}\nItems: {} \n=======", index, items);
                 }
-                db.delete(0);
+                println!("Which Task do you want to delete: ");
+
+                std::io::stdin()
+                    .read_line(&mut bufferDelete)
+                    .expect("Didn't expected the buffer");
+                let str_to_int: i32 = bufferDelete
+                    .trim()
+                    .parse()
+                    .expect("Cannot convert this variable");
+                db.delete(str_to_int as usize);
             }
             "exit" => {
                 state = false;
