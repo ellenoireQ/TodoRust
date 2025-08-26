@@ -22,6 +22,7 @@ fn main() {
              *  Add     *
              *          */
             "add" => {
+                println!("Input your task");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
                 add_todo(&mut db, buffer_inpt);
@@ -30,7 +31,7 @@ fn main() {
                 let db_list = db.list();
 
                 for (index, items) in db_list.iter().enumerate() {
-                    println!("Index: {}\nItems: {} \n=======", index, items);
+                    println!("Index: {}\nItems: {}=======", index, items);
                 }
                 println!("Which Task do you want to delete: ");
 
