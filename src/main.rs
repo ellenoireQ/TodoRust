@@ -1,6 +1,6 @@
 pub mod database;
 mod function;
-
+pub mod table;
 use crate::function::{add_todo, list_todos};
 fn main() {
     // inferred at database
@@ -22,6 +22,7 @@ fn main() {
              *  Add     *
              *          */
             "add" => {
+                table::build_table();
                 println!("Input your task");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
