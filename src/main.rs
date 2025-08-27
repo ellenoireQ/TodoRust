@@ -1,7 +1,10 @@
 pub mod database;
 mod function;
 pub mod table;
-use std::{thread::{self, sleep}, time::{self, Duration}};
+use std::{
+    thread::{self, sleep},
+    time::{self, Duration},
+};
 
 use comfy_table::Table;
 
@@ -14,7 +17,7 @@ fn main() {
     let mut db = database::DatabaseContext::new();
 
     let mut state = true;
-    while state {
+    while state { 
         print!("\x1B[2J\x1B[1;1H");
         let table_datas = &db.list();
         table::build_table(table_datas);
@@ -23,7 +26,7 @@ fn main() {
         println!("Please input Command add|delete|exit");
         std::io::stdin()
             .read_line(&mut buffer)
-            .expect("Didn't expected the answer");
+        .expect("Didn't expected the answer");
 
         let input = buffer.trim();
 
@@ -51,18 +54,17 @@ fn main() {
 
                 match bufferDelete.trim().parse::<usize>() {
                     Ok(index) => {
-                        if index < db_list.len(){
-                        db.delete(index);
-                    }else{
-                        println!("index: {index} not found, back to main menu");
-                        let ten_millis = time::Duration::from_millis(2000);
-                        thread::sleep(ten_millis);
+                        if index < db_list.len() {
+                            db.delete(index);
+                        } else {
+                            println!("index: {index} not found, back to main menu");
+                            let ten_millis = time::Duration::from_millis(2000);
+                            thread::sleep(ten_millis);
+                        }
                     }
-                }
                     Err(_) => {
                         println!("Invalidc input. Please enter a valid task number.");
                     }
-
                 }
             }
             "exit" => {
