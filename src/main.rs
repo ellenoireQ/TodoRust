@@ -33,7 +33,7 @@ fn main() {
                 print!("\x1B[2J\x1B[1;1H");
                 let table_datas = &db.list();
                 table::build_table(table_datas);
-                println!("Input your task");
+                println!("Input your task: (e.g, Cooking with mom tonight)");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
                 add_todo(&mut db, buffer_inpt);
@@ -42,7 +42,7 @@ fn main() {
                 print!("\x1B[2J\x1B[1;1H");
                 let db_list = db.list();
                 table::build_table(&db_list);
-                println!("Which Task do you want to delete: ");
+                println!("Which Task do you want to delete: (e.g, 0)");
                 std::io::stdin()
                     .read_line(&mut bufferDelete)
                     .expect("Didn't expected the buffer");
