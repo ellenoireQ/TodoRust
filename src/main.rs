@@ -30,6 +30,7 @@ fn main() {
     let mut state = true;
     while state {
         clear();
+
         let table_datas = db.list();
         table::build_table(table_datas);
         let mut buffer = String::new();
@@ -86,10 +87,22 @@ fn main() {
                 }
             }
             "exit" => {
+                clear();
+                println!("\n==============================");
+                println!(" Licensed under CC0 1.0 Universal.");
+                println!(" https://creativecommons.org/publicdomain/zero/1.0/");
+                println!("==============================\n");
                 state = false;
             }
             _ => {
+                clear();
                 println!("You didnt inputted program, GETTT OUTTTT!!!");
+
+                println!("\n==============================");
+                println!(" Licensed under CC0 1.0 Universal.");
+                println!(" https://creativecommons.org/publicdomain/zero/1.0/");
+                println!("==============================\n");
+
                 state = false;
             }
         }
