@@ -10,10 +10,10 @@ pub fn build_table(task: &Vec<String>) {
     table
         .load_preset(UTF8_FULL)
         .set_content_arrangement(comfy_table::ContentArrangement::Dynamic)
-        .set_header(vec!["Task"]);
+        .set_header(vec!["Index", "Task"]);
 
     for (index, items) in task.iter().enumerate() {
-        table.add_row(Row::from(vec![Cell::new(&items)]));
+        table.add_row(Row::from(vec![Cell::new(index), Cell::new(&items)]));
     }
 
     println!("{table}");
