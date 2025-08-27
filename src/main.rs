@@ -2,8 +2,7 @@ pub mod database;
 mod function;
 pub mod table;
 use std::{
-    thread::{self, sleep},
-    time::{self, Duration},
+    process::Command, thread::{self, sleep}, time::{self, Duration}
 };
 
 use comfy_table::Table;
@@ -12,13 +11,26 @@ use crate::{
     function::{add_todo, list_todos},
     table::TableData,
 };
+
+fn clear(){
+    let output = Command::new("clear")
+        .output()
+        .expect("Failed to execute command");
+    if output.status.success() {
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            println!("Command stdout:\n{}", stdout);
+        } else {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            eprintln!("Command failed with stderr:\n{}", stderr);
+        }
+}
 fn main() {
     // inferred at database
     let mut db = database::DatabaseContext::new();
 
     let mut state = true;
     while state { 
-        print!("\x1B[2J\x1B[1;1H");
+        clear();
         let table_datas = &db.list();
         table::build_table(table_datas);
         let mut buffer = String::new();
@@ -35,7 +47,7 @@ fn main() {
              *  Add     *
              *          */
             "add" => {
-                print!("\x1B[2J\x1B[1;1H");
+                clear();
                 let table_datas = &db.list();
                 table::build_table(table_datas);
                 println!("Input your task: (e.g, Cooking with mom tonight)");
@@ -44,7 +56,7 @@ fn main() {
                 add_todo(&mut db, buffer_inpt);
             }
             "delete" => {
-                print!("\x1B[2J\x1B[1;1H");
+                clear();
                 let db_list = db.list();
                 table::build_table(&db_list);
                 println!("Which Task do you want to delete: (e.g, 0)");
