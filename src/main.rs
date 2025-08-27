@@ -2,43 +2,43 @@ pub mod database;
 mod function;
 pub mod table;
 use std::{
-    process::Command, thread::{self, sleep}, time::{self, Duration}
+    process::Command,
+    thread::{self, sleep},
+    time::{self, Duration},
 };
 
 use comfy_table::Table;
 
-use crate::{
-    function::{add_todo, list_todos},
-    table::TableData,
-};
+use crate::{database::Database, function::add_todo, table::TableData};
 
-fn clear(){
+fn clear() {
     let output = Command::new("clear")
         .output()
         .expect("Failed to execute command");
     if output.status.success() {
-            let stdout = String::from_utf8_lossy(&output.stdout);
-            println!("Command stdout:\n{}", stdout);
-        } else {
-            let stderr = String::from_utf8_lossy(&output.stderr);
-            eprintln!("Command failed with stderr:\n{}", stderr);
-        }
+        let stdout = String::from_utf8_lossy(&output.stdout);
+        println!("Command stdout:\n{}", stdout);
+    } else {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        eprintln!("Command failed with stderr:\n{}", stderr);
+    }
 }
 fn main() {
     // inferred at database
     let mut db = database::DatabaseContext::new();
 
     let mut state = true;
-    while state { 
+    while state {
         clear();
-        let table_datas = &db.list();
+        let table_datas = db.list();
         table::build_table(table_datas);
         let mut buffer = String::new();
+
         let mut bufferDelete = String::new();
         println!("Please input Command add|delete|exit");
         std::io::stdin()
             .read_line(&mut buffer)
-        .expect("Didn't expected the answer");
+            .expect("Didn't expected the answer");
 
         let input = buffer.trim();
 
@@ -48,12 +48,18 @@ fn main() {
              *          */
             "add" => {
                 clear();
-                let table_datas = &db.list();
-                table::build_table(table_datas);
+                let table_datas = db.list();
+                table::build_table(&table_datas);
                 println!("Input your task: (e.g, Cooking with mom tonight)");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
-                add_todo(&mut db, buffer_inpt);
+
+                let dbs = Database {
+                    todos: "Halo".to_string(),
+                    state: false,
+                };
+
+                add_todo(&mut db, dbs);
             }
             "delete" => {
                 clear();
