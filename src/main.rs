@@ -13,6 +13,7 @@ fn main() {
 
     let mut state = true;
     while state {
+        print!("\x1B[2J\x1B[1;1H");
         let table_datas = &db.list();
         table::build_table(table_datas);
         let mut buffer = String::new();
