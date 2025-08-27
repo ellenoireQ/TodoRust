@@ -55,7 +55,7 @@ fn main() {
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
 
                 let dbs = Database {
-                    todos: "Halo".to_string(),
+                    todos: buffer_inpt,
                     state: false,
                 };
 
