@@ -1,7 +1,12 @@
 pub mod database;
 mod function;
 pub mod table;
-use crate::function::{add_todo, list_todos};
+use comfy_table::Table;
+
+use crate::{
+    function::{add_todo, list_todos},
+    table::TableData,
+};
 fn main() {
     // inferred at database
     let mut db = database::DatabaseContext::new();
@@ -22,7 +27,19 @@ fn main() {
              *  Add     *
              *          */
             "add" => {
-                table::build_table();
+                let table_datas = vec![
+                    TableData {
+                        id: 23,
+                        task: "Belajar".to_string(),
+                        state: false,
+                    },
+                    TableData {
+                        id: 23,
+                        task: "Belajar".to_string(),
+                        state: false,
+                    },
+                ];
+                table::build_table(&table_datas);
                 println!("Input your task");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
