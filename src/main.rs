@@ -30,19 +30,19 @@ fn main() {
              *  Add     *
              *          */
             "add" => {
+                print!("\x1B[2J\x1B[1;1H");
+                let table_datas = &db.list();
+                table::build_table(table_datas);
                 println!("Input your task");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();
                 add_todo(&mut db, buffer_inpt);
             }
             "delete" => {
+                print!("\x1B[2J\x1B[1;1H");
                 let db_list = db.list();
-
-                for (index, items) in db_list.iter().enumerate() {
-                    println!("Index: {}\nItems: {}=======", index, items);
-                }
+                table::build_table(&db_list);
                 println!("Which Task do you want to delete: ");
-
                 std::io::stdin()
                     .read_line(&mut bufferDelete)
                     .expect("Didn't expected the buffer");
