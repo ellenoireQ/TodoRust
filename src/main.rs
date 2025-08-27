@@ -61,5 +61,6 @@ fn main() {
             }
         }
     }
-    list_todos(&db);
+    let table_datas = &db.list();
+    table::build_table(table_datas);
 }
