@@ -13,6 +13,8 @@ fn main() {
 
     let mut state = true;
     while state {
+        let table_datas = &db.list();
+        table::build_table(table_datas);
         let mut buffer = String::new();
         let mut bufferDelete = String::new();
         println!("Please input Command add|delete|exit");
@@ -27,19 +29,6 @@ fn main() {
              *  Add     *
              *          */
             "add" => {
-                let table_datas = vec![
-                    TableData {
-                        id: 23,
-                        task: "Belajar".to_string(),
-                        state: false,
-                    },
-                    TableData {
-                        id: 23,
-                        task: "Belajar".to_string(),
-                        state: false,
-                    },
-                ];
-                table::build_table(&table_datas);
                 println!("Input your task");
                 let mut buffer_inpt = String::new();
                 std::io::stdin().read_line(&mut buffer_inpt).ok();

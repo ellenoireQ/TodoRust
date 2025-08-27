@@ -5,19 +5,16 @@ pub struct TableData {
     pub task: String,
     pub state: bool,
 }
-pub fn build_table(tabs: &[TableData]) {
+pub fn build_table(task: &Vec<String>) {
     let mut table = Table::new();
     table
         .load_preset(UTF8_FULL)
         .set_content_arrangement(comfy_table::ContentArrangement::Dynamic)
-        .set_header(vec!["ID", "Task", "State"]);
+        .set_header(vec!["Task"]);
 
-    for t in tabs {
-        table.add_row(Row::from(vec![
-            Cell::new(t.id),
-            Cell::new(&t.task),
-            Cell::new(t.state),
-        ]));
+    for (index, items) in task.iter().enumerate() {
+        table.add_row(Row::from(vec![Cell::new(&items)]));
     }
+
     println!("{table}");
 }
