@@ -1,6 +1,8 @@
 pub mod database;
 mod function;
 pub mod table;
+use std::{thread::{self, sleep}, time::{self, Duration}};
+
 use comfy_table::Table;
 
 use crate::{
@@ -46,11 +48,22 @@ fn main() {
                 std::io::stdin()
                     .read_line(&mut bufferDelete)
                     .expect("Didn't expected the buffer");
-                let str_to_int: i32 = bufferDelete
-                    .trim()
-                    .parse()
-                    .expect("Cannot convert this variable");
-                db.delete(str_to_int as usize);
+
+                match bufferDelete.trim().parse::<usize>() {
+                    Ok(index) => {
+                        if index < db_list.len(){
+                        db.delete(index);
+                    }else{
+                        println!("index: {index} not found, back to main menu");
+                        let ten_millis = time::Duration::from_millis(2000);
+                        thread::sleep(ten_millis);
+                    }
+                }
+                    Err(_) => {
+                        println!("Invalidc input. Please enter a valid task number.");
+                    }
+
+                }
             }
             "exit" => {
                 state = false;
