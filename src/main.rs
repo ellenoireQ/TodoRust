@@ -67,7 +67,7 @@ fn main() {
             }
             "mark" => {
                 clear();
-                let mut table_datas = db.list();
+                let table_datas = db.list();
                 table::build_table(&table_datas);
                 println!("Which task do you want to checklist");
                 let mut buffer_delete = String::new();
