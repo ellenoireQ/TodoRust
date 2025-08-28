@@ -33,7 +33,7 @@ fn main() {
         table::build_table(table_datas);
         let mut buffer = String::new();
 
-        let mut bufferDelete = String::new();
+        let mut buffer_delete = String::new();
         println!("Please input Command add | mark | delete | exit");
         std::io::stdin()
             .read_line(&mut buffer)
@@ -87,10 +87,10 @@ fn main() {
                 table::build_table(&db_list);
                 println!("Which Task do you want to delete: (e.g, 0)");
                 std::io::stdin()
-                    .read_line(&mut bufferDelete)
+                    .read_line(&mut buffer_delete)
                     .expect("Didn't expected the buffer");
 
-                match bufferDelete.trim().parse::<usize>() {
+                match buffer_delete.trim().parse::<usize>() {
                     Ok(index) => {
                         if index < db_list.len() {
                             db.delete(index);
