@@ -9,6 +9,7 @@ use std::{
 
 use crate::{database::Database, function::add_todo};
 
+// CLEAR Command to clear terminal screen
 fn clear() {
     let output = Command::new("clear")
         .output()
@@ -21,6 +22,7 @@ fn clear() {
         eprintln!("Command failed with stderr:\n{}", stderr);
     }
 }
+
 fn main() {
     // inferred at database
     let mut db = database::DatabaseContext::new();
@@ -60,6 +62,9 @@ fn main() {
 
                 add_todo(&mut db, dbs);
             }
+            /*      *
+             * Mark *
+             *      */
             "mark" => {
                 clear();
                 let table_datas = db.list();
@@ -81,6 +86,9 @@ fn main() {
                     Err(_) => {}
                 }
             }
+            /*          *
+             * Delete   *
+             *          */
             "delete" => {
                 clear();
                 let db_list = db.list();
@@ -116,12 +124,10 @@ fn main() {
             _ => {
                 clear();
                 println!("You didnt inputted program, GETTT OUTTTT!!!");
-
                 println!("\n==============================");
                 println!(" Licensed under CC0 1.0 Universal.");
                 println!(" https://creativecommons.org/publicdomain/zero/1.0/");
                 println!("==============================\n");
-
                 state = false;
             }
         }
