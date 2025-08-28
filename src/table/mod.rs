@@ -1,6 +1,6 @@
 use comfy_table::{Cell, Row, Table, presets::UTF8_FULL};
 
-use crate::database::{Database, DatabaseContext};
+use crate::database::Database;
 
 pub struct TableData {
     pub id: i32,
