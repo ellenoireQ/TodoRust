@@ -36,7 +36,7 @@ fn main() {
         let mut buffer = String::new();
 
         let mut bufferDelete = String::new();
-        println!("Please input Command add|delete|exit");
+        println!("Please input Command add | mark | delete | exit");
         std::io::stdin()
             .read_line(&mut buffer)
             .expect("Didn't expected the answer");
@@ -61,6 +61,12 @@ fn main() {
                 };
 
                 add_todo(&mut db, dbs);
+            }
+            "mark" => {
+                clear();
+                let table_datas = db.list();
+                table::build_table(&table_datas);
+                println!("Which task do you want to checklist");
             }
             "delete" => {
                 clear();
