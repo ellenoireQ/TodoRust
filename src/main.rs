@@ -3,16 +3,11 @@ mod function;
 pub mod table;
 use std::{
     process::Command,
-    thread::{self, sleep},
-    time::{self, Duration},
+    thread::{self},
+    time::{self},
 };
 
-use comfy_table::Table;
-
-use crate::{
-    database::{Database, DatabaseContext},
-    function::add_todo,
-};
+use crate::{database::Database, function::add_todo};
 
 fn clear() {
     let output = Command::new("clear")
