@@ -9,7 +9,10 @@ use std::{
 
 use comfy_table::Table;
 
-use crate::{database::Database, function::add_todo, table::TableData};
+use crate::{
+    database::{Database, DatabaseContext},
+    function::add_todo,
+};
 
 fn clear() {
     let output = Command::new("clear")
@@ -64,9 +67,24 @@ fn main() {
             }
             "mark" => {
                 clear();
-                let table_datas = db.list();
+                let mut table_datas = db.list();
                 table::build_table(&table_datas);
                 println!("Which task do you want to checklist");
+                let mut buffer_delete = String::new();
+
+                std::io::stdin()
+                    .read_line(&mut buffer_delete)
+                    .expect("Expected string but you inputted another variable");
+                match buffer_delete.trim().parse::<usize>() {
+                    Ok(index) => {
+                        if index < table_datas.len() {
+                            db.mark(index);
+                        } else {
+                            //
+                        }
+                    }
+                    Err(_) => {}
+                }
             }
             "delete" => {
                 clear();

@@ -17,7 +17,11 @@ impl DatabaseContext {
     pub fn delete(&mut self, index: usize) {
         self.todos.remove(index);
     }
-
+    pub fn mark(&mut self, index: usize) {
+        if let Some(todo) = self.todos.get_mut(index) {
+            todo.state = true;
+        }
+    }
     pub fn list(&self) -> &Vec<Database> {
         &self.todos
     }
